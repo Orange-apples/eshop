@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.dao.GoodsInfoDao">
+
+    <resultMap type="com.galaxy.entity.GoodsInfo" id="goodsMap">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="OTHER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="total" column="total" jdbcType="INTEGER"/>
+        <collection property="categories" column="id" ofType="com.galaxy.entity.GoodsCategory" select="queryCategories"/>
+        <collection property="tags" column="id" ofType="com.galaxy.entity.GoodsTags" select="queryTags"/>
+        <collection property="photos" column="id" ofType="com.galaxy.entity.GoodsPhoto" select="queryPhotos"/>
+    </resultMap>
+
+
+
+
+    <select id="queryCategories" resultType="com.galaxy.entity.GoodsCategory">
+        select c.* from goods_category c,goods_info_goods_category gc where gc.goods_id=#{id} and c.id=gc.category_id
+    </select>
+    <select id="queryTags" resultType="com.galaxy.entity.GoodsTags">
+        select * from goods_tags t,goods_info_goods_tags gt where gt.goods_id=#{id} and t.id=gt.tags_id
+    </select>
+
+    <select id="queryPhotos" resultType="java.lang.String">
+        select photo_addr from goods_photo where goods_id=#{id}
+    </select>
+
+
+
+</mapper>
