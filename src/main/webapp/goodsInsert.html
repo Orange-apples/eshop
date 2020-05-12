@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="post" action="goods/insert" enctype="multipart/form-data">
+  name:
+    <input type="text" name="name"/><br/>
+    title:<input type="text" name="title"/><br/>
+    price:<input type="text" name="price"/><br/>
+  description:<input type="text" name="description"/><br/>
+    total:<input type="text" name="total"/><br/>
+    category:<span>短袖<input type="checkbox"  name="categoryId" value="1"></span>裤子<input type="checkbox" name="categoryId" value="6"><br/>
+    tags:<span >男士<input type="checkbox"  name="tagsId" value="1"></span><span>女士<input type="checkbox"  name="tagsId" value="2"></span><br/>
+    photo:<input type="file" multiple="multiple" name="files"/><br/>
+  <input type="submit" value="submit"/>
+</form>
+</body>
+</html>

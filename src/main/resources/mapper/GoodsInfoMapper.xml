@@ -13,6 +13,12 @@
         <collection property="tags" column="id" ofType="com.galaxy.entity.GoodsTags" select="queryTags"/>
         <collection property="photos" column="id" ofType="com.galaxy.entity.GoodsPhoto" select="queryPhotos"/>
     </resultMap>
+    <resultMap id="goodsListMap" type="com.galaxy.entity.GoodsInfo">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="OTHER"/>
+        <collection property="photos" column="id" ofType="com.galaxy.entity.GoodsPhoto" select="queryPhotos"/>
+    </resultMap>
 
 
 
@@ -28,6 +34,18 @@
         select photo_addr from goods_photo where goods_id=#{id}
     </select>
 
+    <select id="queryAll" resultMap="goodsListMap">
+       select id,name,price from goods_info
+      <where>
+          <if test="goodsInfo.name!=null and goodsInfo.name!=''">
+              <bind name="name" value="'%'+goodsInfo.name+'%'"/>
+              and name like #{name}
+          </if>
+          <if test="goodsInfo.categoryId!=null and goodsInfo.categoryId!=''">
+              and id in (select goods_id from goods_info_goods_category where category_id=#{goodsInfo.categoryId})
+          </if>
 
+      </where>
+    </select>
 
 </mapper>
