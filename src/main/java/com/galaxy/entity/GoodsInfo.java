@@ -20,11 +20,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "goods_info",excludeProperty = {"categories","tags","photos"},resultMap = "goodsMap")
+@TableName(value = "goods_info",excludeProperty = {"categories","tags","photos","categoryId"},resultMap = "goodsMap")
 public class GoodsInfo extends Model<GoodsInfo> implements Serializable {
     private static final long serialVersionUID = -43418615348735147L;
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
+
+    private Integer categoryId;
 
     private String name;
     

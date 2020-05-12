@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface GoodsCategoryService {
 
+    void insert(GoodsCategory goodsCategory);
+
+    List<GoodsCategory> queryAll();
 }

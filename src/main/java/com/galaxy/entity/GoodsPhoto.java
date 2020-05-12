@@ -10,22 +10,23 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * (GoodsCategory)实体类
+ * (GoodsPhoto)实体类
  *
  * @author makejava
- * @since 2020-05-12 14:07:30
+ * @since 2020-05-12 20:45:49
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "goods_category")
-public class GoodsCategory implements Serializable {
-    private static final long serialVersionUID = -65378712674024898L;
+@TableName(value = "goods_photo")
+public class GoodsPhoto implements Serializable {
+    private static final long serialVersionUID = -71143704010082281L;
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
     
-    private String name;
-
+    private Integer goodsId;
+    
+    private String photoAddr;
 
 
 }
