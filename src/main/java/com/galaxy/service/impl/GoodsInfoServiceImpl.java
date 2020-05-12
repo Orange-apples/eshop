@@ -35,6 +35,12 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Resource
     private GoodsInfoDao goodsInfoDao;
 
+    /**
+     *
+     * @param goodsInfo
+     * @param pages
+     * @return
+     */
     @Override
     public IPage<GoodsInfo> queryAll(GoodsInfo goodsInfo, Integer pages) {
         return goodsInfoDao.queryAll(new Page<GoodsInfo>(pages, ConstantNum.PAGESIZE), goodsInfo);
@@ -55,19 +61,23 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     @Generated(value = "id")
     public void insert(GoodsInfo goodsInfo, Integer[] categoryId, Integer[] tagsId, List<MultipartFile> files,HttpServletRequest request) {
+        //插入商品数据
         goodsInfoDao.insert(goodsInfo);
+        //插入商品与类别关联数据
        for(Integer id :categoryId){
            GoodsInfoGoodsCategory goodsInfoGoodsCategory = new GoodsInfoGoodsCategory();
            goodsInfoGoodsCategory.setCategoryId(id);
            goodsInfoGoodsCategory.setGoodsId(goodsInfo.getId());
            goodsInfoGoodsCategoryDao.insert(goodsInfoGoodsCategory);
        }
+       //插入商品与标签关联数据
         for(Integer id :tagsId){
             GoodsInfoGoodsTags goodsInfoGoodsTags = new GoodsInfoGoodsTags();
             goodsInfoGoodsTags.setTagsId(id);
             goodsInfoGoodsTags.setGoodsId(goodsInfo.getId());
             goodsInfoGoodsTagsDao.insert(goodsInfoGoodsTags);
         }
+        //上传图片
         if(!files.isEmpty()&&files.size()>0){
             String realPath = request.getServletContext().getRealPath("/goodsPhoto/");
             File file = new File(realPath);
@@ -81,6 +91,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
                     goodsPhoto.setPhotoAddr(realPath+filename);
                     System.out.println(goodsPhoto.getPhotoAddr());
                     goodsPhoto.setGoodsId(goodsInfo.getId());
+                    //插入商品图片关联数据
                     goodsPhotoDao.insert(goodsPhoto);
                 } catch (IOException e) {
                     e.printStackTrace();
