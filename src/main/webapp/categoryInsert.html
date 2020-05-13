@@ -2,15 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>类别添加</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<style type="text/css">
+		.conter{
+			width: 500px;
+			height: 100%;
+			margin: 36px auto;
+			margin-bottom: 0px;
+		}
+		.form-control{
+			width: 300px;
+			display: inline-block;
+		}
+		.submit{
+			margin: 20px 0px;
+		}
+	</style>
 </head>
 <body>
-<form method="post" action="category/insert">
-    name:<input type="text" name="name"/>
-    <br/>
-    <input type="submit" value="提交"/>
-</form>
+<div class="conter">
+	<form method="post" action="category/insert">
+		<!-- label的for  连接了下面input的id -->
+		<label for="name" class="control-label">name:</label>
+		<input type="text" name="name" class="form-control" id="name" placeholder="Name"/>
+		
+		<br/>
+		<input type="submit" class="btn btn-primary submit" value="提交"/>
+	</form>
 
-<a href="${pageContext.request.contextPath}/index.html">回到主页</a>
+	<a href="${pageContext.request.contextPath}/index.html" class="btn btn-primary home">回到主页</a>
+</div>
 </body>
+<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 </html>
