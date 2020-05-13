@@ -9,12 +9,12 @@
 ">
 
 
-<!--    1.自动扫描-->
+    <!--    1.自动扫描-->
     <context:component-scan base-package="com.galaxy">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-   <context:property-placeholder location="classpath:/druid.properties"/>
-<!--    2.数据源-->
+    <context:property-placeholder location="classpath:/druid.properties"/>
+    <!--    2.数据源-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="username" value="${user-name}"/>
         <property name="driverClassName" value="${driverClass-name}"/>
@@ -31,10 +31,11 @@
         <property name="testOnReturn" value="${testOnReturn}"/>
         <property name="poolPreparedStatements" value="${poolPreparedStatements}"/>
         <property name="filters" value="${filters}"/>
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="${maxPoolPreparedStatementPerConnectionSize}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${maxPoolPreparedStatementPerConnectionSize}"/>
         <property name="connectionProperties" value="${connectionProperties}"/>
     </bean>
-<!--    3.sqlsessionfactory-->
+    <!--    3.sqlsessionfactory-->
     <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="typeAliasesPackage" value="com.galaxy.entity"/>
@@ -45,16 +46,15 @@
                 </bean>
             </array>
         </property>
-
     </bean>
 
 
-<!--    4.mapperscaner-->
+    <!--    4.mapperscaner-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.galaxy.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
-<!--    文件-->
+    <!--    文件-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8"/>
         <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->

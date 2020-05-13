@@ -2,6 +2,7 @@ package com.galaxy.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.galaxy.entity.GoodsPhoto;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -11,56 +12,9 @@ import java.util.List;
  * @author makejava
  * @since 2020-05-12 20:45:49
  */
+@CacheNamespace(blocking = true)
 public interface GoodsPhotoDao extends BaseMapper<GoodsPhoto> {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    GoodsPhoto queryById(Integer id);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<GoodsPhoto> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
-
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param goodsPhoto 实例对象
-     * @return 对象列表
-     */
-    List<GoodsPhoto> queryAll(GoodsPhoto goodsPhoto);
-
-    /**
-     * 新增数据
-     *
-     * @param goodsPhoto 实例对象
-     * @return 影响行数
-     */
-    int insert(GoodsPhoto goodsPhoto);
-
-    /**
-     * 修改数据
-     *
-     * @param goodsPhoto 实例对象
-     * @return 影响行数
-     */
-    int update(GoodsPhoto goodsPhoto);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer id);
 
 }

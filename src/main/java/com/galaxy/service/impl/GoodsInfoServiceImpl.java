@@ -88,7 +88,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
                 try {
                     multipartFile.transferTo(new File(realPath+filename));
                     GoodsPhoto goodsPhoto = new GoodsPhoto();
-                    goodsPhoto.setPhotoAddr(realPath+filename);
+                    goodsPhoto.setPhotoAddr("/goodsPhoto/"+filename);
                     System.out.println(goodsPhoto.getPhotoAddr());
                     goodsPhoto.setGoodsId(goodsInfo.getId());
                     //插入商品图片关联数据
@@ -103,5 +103,10 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public void delete(Integer id) {
         goodsInfoDao.deleteById(id);
+    }
+
+    @Override
+    public Page<GoodsInfo> queryList(Integer pages) {
+        return goodsInfoDao.selectPage(new Page<GoodsInfo>(pages,ConstantNum.PAGESIZE),null);
     }
 }

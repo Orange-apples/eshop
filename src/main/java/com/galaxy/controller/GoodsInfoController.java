@@ -2,9 +2,14 @@ package com.galaxy.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.galaxy.dao.GoodsCategoryDao;
+import com.galaxy.dao.GoodsInfoGoodsTagsDao;
+import com.galaxy.dao.GoodsTagsDao;
 import com.galaxy.entity.GoodsInfo;
+import com.galaxy.service.GoodsCategoryService;
 import com.galaxy.service.GoodsInfoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,7 +72,7 @@ public class GoodsInfoController {
         goodsInfoService.insert(goodsInfo,categoryId,tagsId,files,request);
 
 
-        return "redirect:index.html";
+        return "redirect:/index.html";
     }
 
     /**
@@ -78,8 +83,28 @@ public class GoodsInfoController {
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Integer id){
         goodsInfoService.delete(id);
-        return "redirect:index.html";
+        return "redirect:/goods/goodsList";
     }
 
+    @Resource
+    GoodsCategoryDao goodsCategoryDao;
+    @Resource
+    GoodsTagsDao goodsTagsDao;
+    @RequestMapping("/insert.html")
+    public  String dataInit(HttpServletRequest request, ModelMap modelMap){
+        modelMap.addAttribute("categories",goodsCategoryDao.selectList(null));
+        modelMap.addAttribute("tags",goodsTagsDao.selectList(null));
+        return "/goodsInsert.jsp";
+    }
+
+
+    @RequestMapping("/goodsList")
+    public String goodsList(ModelMap modelMap,Integer pages){
+        pages = pages==null?1:pages;
+       Page<GoodsInfo> page = goodsInfoService.queryList(pages);
+        modelMap.addAttribute("goodsList",page.getRecords());
+        modelMap.addAttribute("page",page);
+        return "/goodsList.jsp";
+    }
 
 }

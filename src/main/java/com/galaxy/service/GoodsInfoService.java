@@ -22,4 +22,6 @@ public interface GoodsInfoService {
     void insert(GoodsInfo goodsInfo, Integer[] categoryId, Integer[] tagsId, List<MultipartFile> files, HttpServletRequest request);
 
     void delete(Integer id);
+
+    Page<GoodsInfo> queryList(Integer pages);
 }
