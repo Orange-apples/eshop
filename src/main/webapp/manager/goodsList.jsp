@@ -49,6 +49,6 @@
         </c:forEach>
         </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/index.html" class="btn btn-primary home">回到主页</a></div>
+    <a href="${pageContext.request.contextPath}/manager.html" class="btn btn-primary home">回到主页</a></div>
 </body>
 </html>

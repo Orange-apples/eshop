@@ -54,11 +54,12 @@ public class GoodsInfoController {
     @ResponseBody
     @RequestMapping("/queryById")
     public GoodsInfo queryById(Integer id){
-       return goodsInfoService.queryById(id);
+       return id!=null?goodsInfoService.queryById(id):null;
     }
+    /*以下内容为商品的后台管理接口，不对普通用户开放*/
 
     /**
-     *插入数据
+     *插入数据，分别插入，category_goods关联表，tags_goods关联表,photo_goods关联表
      * @param request
      * @param goodsInfo
      * @param categoryId 类别id
@@ -72,7 +73,7 @@ public class GoodsInfoController {
         goodsInfoService.insert(goodsInfo,categoryId,tagsId,files,request);
 
 
-        return "redirect:/index.html";
+        return "redirect:/goods/goodsList";
     }
 
     /**
@@ -90,21 +91,33 @@ public class GoodsInfoController {
     GoodsCategoryDao goodsCategoryDao;
     @Resource
     GoodsTagsDao goodsTagsDao;
+
+    /**
+     * 先查询类别和标签然后跳转到添加商品页面
+     * @param request
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("/insert.html")
     public  String dataInit(HttpServletRequest request, ModelMap modelMap){
         modelMap.addAttribute("categories",goodsCategoryDao.selectList(null));
         modelMap.addAttribute("tags",goodsTagsDao.selectList(null));
-        return "/goodsInsert.jsp";
+        return "/manager/goodsInsert.jsp";
     }
 
-
+    /**
+     * 查询所有商品数据的所有列。
+     * @param modelMap
+     * @param pages
+     * @return
+     */
     @RequestMapping("/goodsList")
     public String goodsList(ModelMap modelMap,Integer pages){
         pages = pages==null?1:pages;
        Page<GoodsInfo> page = goodsInfoService.queryList(pages);
         modelMap.addAttribute("goodsList",page.getRecords());
         modelMap.addAttribute("page",page);
-        return "/goodsList.jsp";
+        return "/manager/goodsList.jsp";
     }
 
 }

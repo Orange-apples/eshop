@@ -34,7 +34,7 @@
         photo:<input type="file" multiple="multiple" name="files"/><br/>
         <input type="submit" class="btn btn-success" value="submit"/>
     </form>
-    <a href="${pageContext.request.contextPath}/index.html" class="btn btn-primary home">回到主页</a>
+    <a href="${pageContext.request.contextPath}/manager/index.html" class="btn btn-primary home">回到主页</a>
 </div>
 </body>
 </html>

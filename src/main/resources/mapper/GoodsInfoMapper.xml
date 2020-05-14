@@ -25,10 +25,10 @@
 
 
     <select id="queryCategories" resultType="com.galaxy.entity.GoodsCategory">
-        select c.* from goods_category c,goods_info_goods_category gc where gc.goods_id=#{id} and c.id=gc.category_id
+        select c.id,c.name from goods_category c,goods_info_goods_category gc where gc.goods_id=#{id} and c.id=gc.category_id
     </select>
     <select id="queryTags" resultType="com.galaxy.entity.GoodsTags">
-        select * from goods_tags t,goods_info_goods_tags gt where gt.goods_id=#{id} and t.id=gt.tags_id
+        select t.id,t.name from goods_tags t,goods_info_goods_tags gt where gt.goods_id=#{id} and t.id=gt.tags_id
     </select>
     <select id="queryPhotos" resultType="java.lang.String">
         select photo_addr from goods_photo where goods_id=#{id}

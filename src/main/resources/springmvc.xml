@@ -27,6 +27,13 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
     <mvc:default-servlet-handler/>
+    <mvc:interceptors>
+           <mvc:interceptor>
+               <mvc:mapping path="/**/manager/**"/>
+               <mvc:exclude-mapping path="/**/manager/login"/>
+               <bean class="com.galaxy.util.ManagerInterceptor"></bean>
+           </mvc:interceptor>
+    </mvc:interceptors>
 
 
 </beans>
