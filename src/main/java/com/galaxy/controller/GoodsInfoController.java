@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (GoodsInfo)表控制层
@@ -40,10 +42,15 @@ public class GoodsInfoController {
      */
     @ResponseBody
     @RequestMapping("/queryAll")
-    public List<GoodsInfo> queryAll(GoodsInfo goodsInfo,Integer pages){
+    public Map<String,Object> queryAll(GoodsInfo goodsInfo, Integer pages){
         pages = pages==null?1:pages;
         IPage<GoodsInfo> goodsInfoIPage = goodsInfoService.queryAll(goodsInfo, pages);
-        return goodsInfoIPage.getRecords();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("goodsList",goodsInfoIPage.getRecords());
+        map.put("total",goodsInfoIPage.getTotal());
+        map.put("totalPage",goodsInfoIPage.getPages());
+        map.put("current",goodsInfoIPage.getCurrent());
+        return map;
     }
 
     /**
