@@ -35,7 +35,7 @@
     </select>
 
 <!--    查询列表-->
-    <select id="queryAll" resultMap="goodsListMap">
+    <select id="queryAll" useCache="true" resultMap="goodsListMap">
        select id,name,price from goods_info
       <where>
           <if test="goodsInfo.name!=null and goodsInfo.name!=''">
