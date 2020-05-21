@@ -10,14 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ManagerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String pwd = (String) request.getSession().getAttribute("pwd");
-        System.out.println("session:"+pwd);
-        if ("admin".equals(pwd)){
+
             return true;
-        }else {
-            response.sendRedirect(request.getContextPath());
-            return false;
-        }
     }
 
     @Override

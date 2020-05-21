@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2020-05-12 14:05:52
  */
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("goods")
 public class GoodsInfoController {
     @Resource
     GoodsInfoService goodsInfoService;
@@ -76,7 +76,7 @@ public class GoodsInfoController {
      */
     @RequestMapping("/insert")
     public String insert(HttpServletRequest request,GoodsInfo goodsInfo, Integer[] categoryId, Integer[] tagsId, List<MultipartFile> files){
-        System.out.println(files.size());
+
         goodsInfoService.insert(goodsInfo,categoryId,tagsId,files,request);
 
 
@@ -125,6 +125,14 @@ public class GoodsInfoController {
         modelMap.addAttribute("goodsList",page.getRecords());
         modelMap.addAttribute("page",page);
         return "/manager/goodsList.jsp";
+    }
+    @RequestMapping("/index")
+    public String index(){
+         return "/manager/index.html";
+    }
+    @RequestMapping("categoryInsert.html")
+    public String categoryPage(){
+        return "/manager/categoryInsert.html";
     }
 
 }

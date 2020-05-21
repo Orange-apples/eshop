@@ -64,22 +64,26 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         //插入商品数据
         goodsInfoDao.insert(goodsInfo);
         //插入商品与类别关联数据
-       for(Integer id :categoryId){
-           GoodsInfoGoodsCategory goodsInfoGoodsCategory = new GoodsInfoGoodsCategory();
-           goodsInfoGoodsCategory.setCategoryId(id);
-           goodsInfoGoodsCategory.setGoodsId(goodsInfo.getId());
-           goodsInfoGoodsCategoryDao.insert(goodsInfoGoodsCategory);
-       }
-       //插入商品与标签关联数据
-        for(Integer id :tagsId){
-            GoodsInfoGoodsTags goodsInfoGoodsTags = new GoodsInfoGoodsTags();
-            goodsInfoGoodsTags.setTagsId(id);
-            goodsInfoGoodsTags.setGoodsId(goodsInfo.getId());
-            goodsInfoGoodsTagsDao.insert(goodsInfoGoodsTags);
+    if(categoryId!=null){
+        for(Integer id :categoryId){
+            GoodsInfoGoodsCategory goodsInfoGoodsCategory = new GoodsInfoGoodsCategory();
+            goodsInfoGoodsCategory.setCategoryId(id);
+            goodsInfoGoodsCategory.setGoodsId(goodsInfo.getId());
+            goodsInfoGoodsCategoryDao.insert(goodsInfoGoodsCategory);
         }
+    }
+       //插入商品与标签关联数据
+       if(tagsId!=null){
+           for(Integer id :tagsId){
+               GoodsInfoGoodsTags goodsInfoGoodsTags = new GoodsInfoGoodsTags();
+               goodsInfoGoodsTags.setTagsId(id);
+               goodsInfoGoodsTags.setGoodsId(goodsInfo.getId());
+               goodsInfoGoodsTagsDao.insert(goodsInfoGoodsTags);
+           }
+       }
         //上传图片
         if(!files.isEmpty()&&files.size()>0){
-            String realPath = request.getServletContext().getRealPath("/goodsPhoto/");
+            String realPath = request.getServletContext().getRealPath(ConstantNum.uploadPath());
             File file = new File(realPath);
             if(!file.exists())file.mkdirs();
             for(MultipartFile multipartFile:files){
@@ -88,7 +92,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
                 try {
                     multipartFile.transferTo(new File(realPath+filename));
                     GoodsPhoto goodsPhoto = new GoodsPhoto();
-                    goodsPhoto.setPhotoAddr("/goodsPhoto/"+filename);
+                    goodsPhoto.setPhotoAddr(filename);
                     System.out.println(goodsPhoto.getPhotoAddr());
                     goodsPhoto.setGoodsId(goodsInfo.getId());
                     //插入商品图片关联数据

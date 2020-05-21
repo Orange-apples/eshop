@@ -43,12 +43,12 @@
                 <td>${goods.total}</td>
                 <td><c:forEach items="${goods.categories}" var="category">${category.name},</c:forEach></td>
                 <td><c:forEach items="${goods.tags}" var="tags">${tags.name},</c:forEach></td>
-                <td ><img src="${pageContext.request.contextPath}${goods.photos[0]}" style="width: 200px ;height: 50px"></td>
+                <td ><img src="${pageContext.servletContext.contextPath}/goodsPhoto/${goods.photos[0]}" style="width: 200px ;height: 100px"></td>
                 <td> <a href="${pageContext.request.contextPath}/goods/delete/${goods.id}">删除</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/manager/index.html" class="btn btn-primary home">回到主页</a></div>
+    <a href="index" class="btn btn-primary home">回到主页</a></div>
 </body>
 </html>

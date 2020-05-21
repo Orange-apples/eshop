@@ -34,6 +34,14 @@
                <bean class="com.galaxy.util.ManagerInterceptor"></bean>
            </mvc:interceptor>
     </mvc:interceptors>
-
+ <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+     <property name="prefix" value="/WEB-INF/pages"/>
+<!--     <property name="suffix" value=".html"/>-->
+ </bean>
+    <!--过滤静态资源-->
+    <mvc:resources mapping="/css/**" location="/css/"/>
+<!--    <mvc:resources mapping="/images/**" location="/images/"/>-->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/goodsPhoto/**" location="/WEB-INF/goodsPhoto/"/>
 
 </beans>
