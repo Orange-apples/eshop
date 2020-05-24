@@ -28,11 +28,15 @@
     </mvc:annotation-driven>
     <mvc:default-servlet-handler/>
     <mvc:interceptors>
-           <mvc:interceptor>
-               <mvc:mapping path="/**/manager/**"/>
-               <mvc:exclude-mapping path="/**/manager/login"/>
-               <bean class="com.galaxy.util.ManagerInterceptor"></bean>
-           </mvc:interceptor>
+<!--           <mvc:interceptor>-->
+<!--               <mvc:mapping path="/**/manager/**"/>-->
+<!--               <mvc:exclude-mapping path="/**/manager/login"/>-->
+<!--               <bean class="com.galaxy.util.ManagerInterceptor"></bean>-->
+<!--           </mvc:interceptor>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.galaxy.util.AccessInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
      <property name="prefix" value="/WEB-INF/pages"/>

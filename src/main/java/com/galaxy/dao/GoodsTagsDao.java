@@ -12,6 +12,6 @@ import java.util.List;
  * @author makejava
  * @since 2020-05-13 08:14:20
  */
-@CacheNamespace(blocking = true)
+//@CacheNamespace(blocking = true)
 public interface GoodsTagsDao extends BaseMapper<GoodsTags> {
 }

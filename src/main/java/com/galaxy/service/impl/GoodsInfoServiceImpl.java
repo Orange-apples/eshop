@@ -1,13 +1,12 @@
 package com.galaxy.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.galaxy.dao.GoodsInfoDao;
 import com.galaxy.dao.GoodsInfoGoodsCategoryDao;
 import com.galaxy.dao.GoodsInfoGoodsTagsDao;
 import com.galaxy.dao.GoodsPhotoDao;
 import com.galaxy.entity.GoodsInfo;
-import com.galaxy.dao.GoodsInfoDao;
 import com.galaxy.entity.GoodsInfoGoodsCategory;
 import com.galaxy.entity.GoodsInfoGoodsTags;
 import com.galaxy.entity.GoodsPhoto;
@@ -87,12 +86,13 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
             File file = new File(realPath);
             if(!file.exists())file.mkdirs();
             for(MultipartFile multipartFile:files){
-                String filename =new Date().getTime()+ multipartFile.getOriginalFilename();
+                String[] split = multipartFile.getOriginalFilename().split("\\.");
+                String filename =new Date().getTime() + "."+split[split.length - 1];
                 System.out.println(realPath+filename);
                 try {
                     multipartFile.transferTo(new File(realPath+filename));
                     GoodsPhoto goodsPhoto = new GoodsPhoto();
-                    goodsPhoto.setPhotoAddr(filename);
+                    goodsPhoto.setPhotoAddr("/goodsPhoto/"+filename);
                     System.out.println(goodsPhoto.getPhotoAddr());
                     goodsPhoto.setGoodsId(goodsInfo.getId());
                     //插入商品图片关联数据

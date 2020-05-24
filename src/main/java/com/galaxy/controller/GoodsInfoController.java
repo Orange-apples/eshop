@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -42,7 +43,8 @@ public class GoodsInfoController {
      */
     @ResponseBody
     @RequestMapping("/queryAll")
-    public Map<String,Object> queryAll(GoodsInfo goodsInfo, Integer pages){
+    public Map<String,Object> queryAll(GoodsInfo goodsInfo, Integer pages, HttpServletResponse response){
+//        response.addHeader("Access-Control-Allow-Origin","*");
         pages = pages==null?1:pages;
         IPage<GoodsInfo> goodsInfoIPage = goodsInfoService.queryAll(goodsInfo, pages);
         HashMap<String, Object> map = new HashMap<>();
@@ -89,7 +91,15 @@ public class GoodsInfoController {
      * @return
      */
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable(value = "id") Integer id){
+    public String delete(@PathVariable(value = "id") Integer id,HttpServletRequest request){
+        List<String> photos = goodsInfoService.queryById(id).getPhotos();
+        if(photos!=null){
+            for (String photo : photos) {
+                File file = new File(request.getServletContext().getRealPath("WEB-INF"+photo));
+                System.out.println(file.getPath());
+                file.delete();
+            }
+        }
         goodsInfoService.delete(id);
         return "redirect:/goods/goodsList";
     }

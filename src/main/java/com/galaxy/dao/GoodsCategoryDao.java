@@ -12,7 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-05-12 14:07:30
  */
-@CacheNamespace(blocking = true)
+//@CacheNamespace(blocking = true)
 public interface GoodsCategoryDao extends BaseMapper<GoodsCategory> {
 
 

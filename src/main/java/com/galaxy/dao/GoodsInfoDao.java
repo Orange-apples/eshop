@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @author makejava
  * @since 2020-05-12 14:05:51
  */
-@CacheNamespace(blocking = true)
+//@CacheNamespace(blocking = true)
 public interface GoodsInfoDao extends BaseMapper<GoodsInfo> {
 
     Page<GoodsInfo> queryAll(Page<GoodsInfo> page, @Param("goodsInfo") GoodsInfo goodsInfo);
